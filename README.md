@@ -34,6 +34,8 @@ From an organisational perspective, the project demonstrates how modern AI can b
 - **Policy-driven** – all answers trace back to structured court service documents that can be reviewed and updated by authorised staff.  
 - **Citizen-oriented** – provides clear, consistent information to court users, helping to reduce repetitive front-desk questions and call volume.
 
+---
+
 ## Key goals:
 
 - 🛡️ **Privacy-first**: runs on **local LLM** via [Ollama](https://ollama.com)  
