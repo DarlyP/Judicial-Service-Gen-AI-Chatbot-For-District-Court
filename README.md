@@ -107,7 +107,43 @@ Pipeline at a glance:
   - Summary stored in `validation_results_summary.csv`
 - 🧱 **Local-first design**
   - No external API keys needed
-  - Can run fully inside court infrastructure
+  - Can run fully inside the court infrastructure
+
+---
+
+## Current Limitations
+
+To keep the prototype focused and safe for a court environment, this project intentionally has a few limitations that are important to understand:
+
+1. **No true conversational memory (yet)**  
+   Each question is answered independently. The backend function `answer_question(q)` only sees the current user query and FAQ context; it does **not** maintain a multi-turn chat history at the LLM level.  
+   - Follow-up questions, such as “How about for civil cases?” will only be answered correctly if the user repeats enough context in the new question.  
+   - Session history is stored in the Streamlit UI for the user’s convenience, but it is not yet fed back into the RAG prompt.
+
+2. **Knowledge is limited to curated FAQ CSVs**  
+   The chatbot only answers based on the data in `standar_layanan_combined.csv` (and its source CSVs). Topics outside those service standards will trigger low similarity scores and fall into the fallback branch.  
+   - This is a deliberate design choice to keep answers auditable and aligned with official documents.  
+   - It also means the system will sometimes say “I cannot help” instead of guessing.
+
+3. **Candidate FAQ pipeline is manual by design**  
+   Low-confidence questions are logged to `candidate_faq.csv`, but they do not automatically update the main FAQ dataset.  
+   - Court staff still need to review, edit, and approve new questions and answers before they are merged into the official CSV.  
+   - This slows down fully automatic “learning”, but keeps human oversight in the loop.
+
+4. **No automatic retraining schedule**  
+   The FAISS index is rebuilt when the CSV changes (based on file timestamps), but there is no scheduled job or orchestration layer (e.g. Airflow, Prefect) in this repository. Operationalization (cron jobs, CI/CD, monitoring) is left to the deployment environment.
+
+5. **Model and threshold choices are conservative**  
+   Thresholds for `DETERMINISTIC`, `RAG`, and `FALLBACK` routing, as well as the default embedding model and LLM, are tuned for safety and clarity rather than maximum creativity.  
+   - In some borderline cases, the system prefers to fall back and log a candidate FAQ instead of producing a speculative answer.  
+   - These parameters can be adjusted, but should be reviewed carefully from a risk and governance perspective.
+
+6. **Does not replace official legal advice**  
+   Even with good data and routing, this chatbot is **not a legal expert system** and must not be treated as a source of binding legal interpretation.  
+   - All responses should be considered informational and must be validated against current regulations and court policies.  
+   - Any production deployment should include clear user-facing disclaimers and escalation paths to human officers.
+
+These limitations are intentional for a first iteration in a judicial context. They also define a clear roadmap: introducing controlled conversational memory, expanding and curating the FAQ corpus, and integrating the system into existing court IT governance and monitoring processes.
 
 ---
 
