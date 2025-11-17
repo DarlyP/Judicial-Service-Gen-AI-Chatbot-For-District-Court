@@ -59,9 +59,9 @@ Pipeline at a glance:
 
 2. **Data validation**
    - `great_expectations` checks:
-     - required columns: `category`, `question`, `answer`
-     - question length & end with `?`
-     - answer length range, no HTML, etc.
+     - Required columns: `category`, `question`, `answer`
+     - Question length & end with `?`
+     - Answer length range, no HTML, etc.
 
 3. **Semantic index (FAISS)**
    - Embeddings: `intfloat/multilingual-e5-small`
@@ -82,11 +82,11 @@ Pipeline at a glance:
 6. **User interface**
    - Frontend: [Streamlit](https://streamlit.io)
    - Features:
-     - question input
-     - quick “pill” examples
-     - confidence badges
-     - transparency: show similar FAQ rows
-     - session history with feedback and export
+     - Question input
+     - Quick “pill” examples
+     - Confidence badges
+     - Transparency: show similar FAQ rows
+     - Session history with feedback and export
 
 ---
 
@@ -95,19 +95,19 @@ Pipeline at a glance:
 - 🔍 **Semantic FAQ search** with FAISS + multilingual E5 embeddings  
 - 🎯 **Deterministic vs RAG routing** based on similarity thresholds  
 - 🧾 **Session history dashboard** with:
-  - bookmarks
+  - Bookmarks
   - 👍/👎 feedback
-  - free-text notes
+  - Free-text notes
   - CSV export
 - 📈 **Candidate FAQ pipeline**
-  - low-confidence questions logged to `candidate_faq.csv`
-  - includes suggested category, timestamps, and status
+  - Low-confidence questions logged to `candidate_faq.csv`
+  - Includes suggested category, timestamps, and status
 - ✅ **Data quality checks**
   - Great Expectations suite (`standar_layanan_suite_auto`)
-  - summary stored in `validation_results_summary.csv`
+  - Summary stored in `validation_results_summary.csv`
 - 🧱 **Local-first design**
-  - no external API keys needed
-  - can run fully inside court infrastructure
+  - No external API keys needed
+  - Can run fully inside court infrastructure
 
 ---
 
