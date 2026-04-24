@@ -1,7 +1,12 @@
 FROM python:3.14-slim
 
 # Update package index and install base system tools
-RUN apt-get update && apt-get install -y curl git ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    ca-certificates \
+    zstd \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Ollama using the official installation script
 RUN curl -fsSL https://ollama.com/install.sh | sh
